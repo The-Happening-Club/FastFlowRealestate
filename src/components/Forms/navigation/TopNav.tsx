@@ -4,13 +4,12 @@ import React,{useState} from "react";
 import Image from "next/image";
 import { LogOutIcon } from "@/components/icons/icons";
 
-
 const TopNav = () => {
 
     const [profilOpen, toggleProfil] = useState(false)
 
     return (
-        <nav className="flex flex-row justify-between items-center bg-white px-8 py-4">
+        <nav className="flex flex-row justify-between items-center px-8 py-4">
             <div className="flex items-center gap-2 text-slate-700 font-semibold">
                 <Image src={"/Logos/fast_flow_logo.png"} width={30} height={30} alt="fast flow logo"/>
                 <span>Fast Flow</span>

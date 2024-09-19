@@ -20,11 +20,11 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col h-screen w-svw bg-slate-200 overflow-hidden">
+    <div className="flex flex-col h-screen w-svw  bg-slate-50 overflow-hidden">
       <TopNav />
       <main className="flex flex-grow flex-row items-start justify-between overflow-hidden">
         <SideNav user="Andreas" onItemSelected={handleItemSelect} />
-        <div className="sticky flex flex-grow justify-center items-center max-h-screen min-h-1/2 w-full overflow-y-auto">
+        <div className="sticky flex flex-grow justify-center rounded-lg bg-slate-100 items-center max-h-screen min-h-1/2 w-full overflow-y-auto">
           {/* Verwende den State `content` zum Rendern der ausgewählten Komponente */}
           {content}
         </div>

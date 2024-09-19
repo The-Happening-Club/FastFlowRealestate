@@ -34,6 +34,9 @@ const config: Config = {
       },
     },
   },
+  gridTemplateColums: {
+    app: "250px 1fr",
+  },
   plugins: [],
 };
 export default config;

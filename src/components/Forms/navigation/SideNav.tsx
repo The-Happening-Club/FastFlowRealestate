@@ -14,7 +14,7 @@ const SideNav = ({user, onItemSelected }:{user: string, onItemSelected: (item: s
         onItemSelected(item)
     }
     return(
-        <nav className={`flex flex-grow h-full flex-col w-${toogleNav.width} gap-4 border-l-2 text-slate-600 font-semibold bg-white px-8 py-8`} style={{transition: 'all ease-in-out', transitionDuration: '1000ms'}}>
+        <nav className={`flex flex-grow h-full flex-col w-${toogleNav.width} gap-4 border-l-2 text-slate-600 font-semibold  px-8 py-8`} style={{transition: 'all ease-in-out', transitionDuration: '1000ms'}}>
             <div className="flex">
                 <h3 className="pl-1" style={{display: toogleNav.display}}>{navigationContent[0].header} {user}</h3>
                  
