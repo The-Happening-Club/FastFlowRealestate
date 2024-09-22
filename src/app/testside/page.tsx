@@ -1,69 +1,42 @@
 "use client";
 
-const NavBar = () => {
-  return (
-    <nav className="grid grid-cols-2 grid-rows-1 bg-red-500 h-[50px]">
-      <div>hello</div>
-      <div>test</div>
-    </nav>
+import React, { useState } from "react";
+import { classed } from "@tw-classed/react";
+
+import SideNav from "@/components/Navigation/SideNav";
+import OrderContainer from "@/components/Orders/OrderContainer";
+
+// Constants die importiert werden müssen
+const user = "Andreas Sanchez Paetzmann";
+
+const ClassedContentContainer = classed(
+  "main",
+  "grid grid-rows-[2rem_1fr] gap-2 bg-slate-50 text-slate-800 p-4"
+);
+
+const ClassedDashboardHeader = classed("div", "text-2xl px-4");
+
+export default function Main() {
+  const [colapseNav, setColapse] = useState(false);
+
+  const toggleColapse = () => {
+    setColapse(!colapseNav);
+  };
+
+  const ClassedDashboard = classed(
+    "div",
+    `fixed grid bg-blue-default w-screen h-screen ${
+      colapseNav ? "grid-cols-[8rem_1fr]" : "grid-cols-[16rem_1fr]"
+    } transition-all duration-700 ease-out`
   );
-};
 
-const SideNav = () => {
   return (
-    <nav className="flex flex-col bg-emerald-400 h-full">
-      <div className="bg-slate-400 flex-1">Aufträge</div>
-      <div className="bg-fuchsia-400 h-10">Aufträge</div>
-    </nav>
-  );
-};
-
-const DashBoard = () => {
-  return (
-    <main className="flex bg-orange-400 p-8">
-      <OrderContainer />
-    </main>
-  );
-};
-
-const OrderHeader = () => {
-  return (
-    <div className="grid grid-rows-1 grid-cols-[1fr_2fr_1fr_1fr_1fr_1fr_1fr_2fr] gap-1 bg-amber-800 h-16">
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-      <div className="overflow-hidden bg-yellow-300">noo1</div>
-    </div>
-  );
-};
-
-const OrderContainer = () => {
-  return (
-    <div className="grid grid-cols-1 bg-fuchsia-400 rounded-lg border-4 w-full h-full">
-      <OrderHeader />
-      <div className="grid grid-cols-1 bg-red-400 overflow-auto"></div>
-    </div>
-  );
-};
-
-export default function Test() {
-  return (
-    <div className="fixed grid grid-rows-[50px_1fr] w-screen h-screen bg-slate-50">
-      {/* NavBar bleibt oben fixiert */}
-      <NavBar />
-
-      {/* Hauptinhalt: SideNav + Dashboard */}
-      <div className="grid grid-cols-[250px_1fr] h-full overflow-hidden">
-        {/* Sidebar */}
-        <SideNav />
-
-        {/* Dashboard */}
-        <DashBoard />
-      </div>
-    </div>
+    <ClassedDashboard>
+      <SideNav user={user} colapsed={toggleColapse} />
+      <ClassedContentContainer>
+        <ClassedDashboardHeader>Aufträge</ClassedDashboardHeader>
+        <OrderContainer />
+      </ClassedContentContainer>
+    </ClassedDashboard>
   );
 }
