@@ -39,10 +39,30 @@ const FileUploadDropZone = () => {
               <div className="h-5 w-5 bg-slate-400 rounded-md gap-2"></div>
               <span>Upload Name</span>
             </div>
-            <div className="h-2 bg-slate-100 w-full rounded-full overflow-hidden">
+            <div className="h-1 bg-slate-200 w-full rounded-full overflow-hidden">
               <div
-                className={`flex h-full bg-blue-500 ${
-                  isUploading ? 'w-full' : 'w-0'
+                className={`flex h-full bg-primary  ${
+                  isUploadError ? '!bg-red-500' : ''
+                } ${
+                  isUploading ? 'w-full bg-emerald-500' : 'w-0'
+                } transition-all duration-1000 ease-in-out delay-500`}
+              ></div>
+            </div>
+          </div>
+          <div className="flex flex-col h-fit px-2 py-2 rounded-xl bg-slate-300 gap-2">
+            <div className="relative flex gap-2 justify-between">
+              <div className="flex gap-2 w-full">
+                <div className="h-5 w-5 bg-slate-400 rounded-md gap-2"></div>
+                <span>Upload Name</span>
+              </div>
+              <div className="h-5 w-5 bg-blue-300 rounded-full gap-2 flex justify-center items-center text-xs text-primary">
+                ✔︎
+              </div>
+            </div>
+            <div className="h-1 bg-slate-100 w-full rounded-full overflow-hidden">
+              <div
+                className={`flex h-full $ ${
+                  isUploading ? 'w-full bg-emerald-500' : 'w-0 bg-primary'
                 } transition-all duration-1000 ease-in-out`}
               ></div>
             </div>
@@ -51,19 +71,9 @@ const FileUploadDropZone = () => {
             <div className="relative flex gap-2 overflow-hidden">
               <div className="h-5 w-5 bg-slate-400 rounded-md gap-2"></div>
               <span>Upload Name</span>
-            </div>
-            <div className="h-2 bg-slate-100 w-full rounded-full overflow-hidden">
-              <div
-                className={`flex h-full bg-blue-500 ${
-                  isUploading ? 'w-full bg-blue-500' : 'w-0 bg-blue-500'
-                } transition-all duration-1000 ease-in-out`}
-              ></div>
-            </div>
-          </div>
-          <div className="flex flex-col h-fit px-2 py-2 rounded-xl bg-slate-300 gap-2">
-            <div className="relative flex gap-2 overflow-hidden">
-              <div className="h-5 w-5 bg-slate-400 rounded-md gap-2"></div>
-              <span>Upload Name</span>
+              <div className="h-5 w-5 bg-blue-300 rounded-full gap-2 flex justify-center items-center text-xs text-primary">
+                ✔︎
+              </div>
             </div>
           </div>
         </div>

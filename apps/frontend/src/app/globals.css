@@ -3,16 +3,43 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eceff1;
+  --foreground: #000134;
+
+  /* primitives */
+  --white: #fdfdfe;
+  --black: #000134;
+
+  /* colors */
+
+  --blue-default: #1143d4;
+
+  /* neutrals */
+  --neutral-100: #cdd0d2;
+  --neutral-300: #929495;
+  --neutral-200: #afb1b3;
+  --neutral-400: #767879;
+  --neutral-500: #5b5c5d;
+  --neutral-600: #424243;
+  --neutral-700: #292a2b;
+  --neutral-800: #131414;
+  --neutral-900: #030303;
+
+  /* primary secondary */
+  --primary-contrast: var(--blue);
+  --primary: #1143d4;
+
+  /* buttons */
+  --button-primary: #001fcc;
+  --button-primary-disabled: #4473e1;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000134;
+    --foreground: #e6e9fa;
   }
-}
+} */
 
 body {
   color: var(--foreground);

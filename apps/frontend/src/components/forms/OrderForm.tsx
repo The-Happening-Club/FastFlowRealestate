@@ -168,24 +168,24 @@ const OrderForm = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-[600px] rounded-xl bg-slate-50 border border-slate-200 text-black p-7 gap-4 drop-shadow-lg transition-all duration-500 ease-in-out"
+        className="flex flex-col w-[600px] rounded-xl bg-primitive-white border border-slate-200 text-black p-7 gap-4 drop-shadow-lg transition-all duration-500 ease-in-out"
       >
         <div className="flex w-full justify-between">
-          <header className="text-3xl font-semibold text-blue-500">
+          <header className="text-3xl font-semibold text-primary">
             Neuen Auftrag anlegen
           </header>
           <div className="relative flex group hover:gap-2 transition-all duration-500 ease-in-out cursor-pointer">
-            <div className="relative left-[36px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-blue-500 z-20 transition-all duration-500 ease-in-out">
+            <div className="relative left-[36px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-20 transition-all duration-500 ease-in-out">
               <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
                 x
               </div>
             </div>
-            <div className="relative left-[16px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-blue-500 z-10 transition-all duration-300 ease-in-out">
+            <div className="relative left-[16px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-10 transition-all duration-300 ease-in-out">
               <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
                 x
               </div>
             </div>
-            <div className="relative flex h-10 w-10 bg-slate-400 rounded-full border border-blue-500 z-0">
+            <div className="relative flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-0">
               <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
                 x
               </div>
@@ -204,7 +204,7 @@ const OrderForm = () => {
             id="title"
             value={formData?.title}
             onChange={handleChange}
-            className="px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200"
+            className="px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200 focus:outline-primary"
             placeholder="Bitte füge eine Titel zu deinem Auftrag hinzu."
             required
           />
@@ -304,7 +304,7 @@ const OrderForm = () => {
           </datalist>
           <button
             type="button"
-            className="flex justify-center items-center h-8 w-8 bg-slate-400 hover:bg-blue-500 text-white text-3xl rounded-full"
+            className="flex justify-center items-center h-8 w-8 bg-slate-400 hover:bg-primary text-white text-3xl rounded-full"
           >
             +
           </button>
@@ -320,6 +320,7 @@ const OrderForm = () => {
             bgColor={'primary'}
             ariaLabel="neuen Auftrag anlegen"
             text="Anlegen"
+            disabled={false}
           />
 
           {/* <NotificationDialog
@@ -356,7 +357,7 @@ export default OrderForm;
 // Deadline darf beim eintragen nicht in der vergangenheit liegen
 // Reminder darf nicht in der vergangengenheit liegen und muss mehrere optionen haben
 // icons für accesibility
-
+// If all inputs are valid enable button
 /* From input? 
 titel:
 Types möglichkeit labels selber hinzu zufügen?

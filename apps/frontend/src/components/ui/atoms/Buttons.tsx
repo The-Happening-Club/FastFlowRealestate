@@ -5,6 +5,7 @@ interface ButtonProps {
   text: string;
   ariaLabel: string;
   bgColor: 'primary' | 'secondary';
+  disabled?: boolean;
   onClicked?: () => void;
 }
 export const Button: FC<ButtonProps> = ({
@@ -16,7 +17,7 @@ export const Button: FC<ButtonProps> = ({
   let color = '';
   switch (bgColor) {
     case 'primary':
-      color = 'bg-blue-500';
+      color = 'bg-primary';
       break;
     case 'secondary':
       color = 'bg-slate-300 hover:bg-red-500';
@@ -37,11 +38,16 @@ export const Button: FC<ButtonProps> = ({
   );
 };
 
-export const SubmitButton: FC<ButtonProps> = ({ text, bgColor, ariaLabel }) => {
+export const SubmitButton: FC<ButtonProps> = ({
+  text,
+  bgColor,
+  ariaLabel,
+  disabled,
+}) => {
   let color = '';
   switch (bgColor) {
     case 'primary':
-      color = 'bg-blue-500 hover:bg-blue-300 hover:text-blue-500';
+      color = 'bg-primary hover:bg-blue-300 hover:text-primary';
       break;
     case 'secondary':
       color = 'bg-red-500';
@@ -54,7 +60,8 @@ export const SubmitButton: FC<ButtonProps> = ({ text, bgColor, ariaLabel }) => {
     <button
       type="submit"
       aria-label={ariaLabel}
-      className={`w-fit h-fit px-4 py-2 min-w-32 rounded-md ${color} text-white transition-colors duration-300 ease-in-out`}
+      disabled={disabled}
+      className={`w-fit h-fit px-4 py-2 min-w-32 rounded-md ${color} text-white transition-colors duration-300 ease-in-out disabled:bg-button-primary-disabled`}
     >
       {text}
     </button>
