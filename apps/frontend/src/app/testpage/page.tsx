@@ -1,4 +1,4 @@
-import OrderForm from "@/components/forms/OrderForm";
+import OrderForm from '../../components/forms/OrderForm';
 
 export default function TestPage() {
   return (
