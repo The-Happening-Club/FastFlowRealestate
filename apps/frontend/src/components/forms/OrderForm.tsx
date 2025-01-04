@@ -6,6 +6,7 @@ import { Button, SubmitButton } from '../ui/atoms/Buttons';
 // import { Switch } from '@headlessui/react';
 import { RequiredAstrix } from './ClassedFormTags';
 import FileUploadDropZone from '../ui/organisms/FileUploadDropZone';
+import PriorityDropDown from '../ui/organisms/inputs/drop-downs/PrioriryComboBox';
 
 const ClassedInputWrapper = classed('div', 'flex flex-col gap-2');
 const ClassedDoubleInputWrapper = classed('div', 'flex gap-4');
@@ -250,11 +251,7 @@ const OrderForm = () => {
               required
             />
           </ClassedInputLabel>
-          <OptionDropDown
-            label="Priorität"
-            onSetOption={(value) => handleSetOption('prio', value)}
-            options={prioData}
-          />
+          <PriorityDropDown />
           {/* <ClassedInputLabel
             htmlFor="reminder"
             className="flex flex-col w-full"
