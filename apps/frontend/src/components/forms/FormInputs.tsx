@@ -10,7 +10,7 @@ import { ClassedLabel } from '../ui/organisms/inputs/styles/classedStyles';
 interface OptionInputProps {
   label: string;
   optionData: string[];
-  required: boolean;
+  required?: boolean;
   onChange: (value: string) => void;
 }
 

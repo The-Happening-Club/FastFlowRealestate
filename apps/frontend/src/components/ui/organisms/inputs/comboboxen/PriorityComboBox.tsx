@@ -22,7 +22,7 @@ import { PriorityIndicator } from '../../../molecules/PriorityIndicator';
 
 const SelectWrapper = classed(
   'div',
-  `flex z-20 bg-white items-center justify-between border-neutral-100 border p-[12px] rounded-[16px] gap-[16px] min-w-[144px] ${BaseAnimation}`
+  `flex z-20 bg-white items-center justify-between border-neutral-100 border p-[12px] rounded-[16px] gap-[16px] min-w-[164px] ${BaseAnimation}`
 );
 
 const SelectValueWarapper = classed(
@@ -42,7 +42,7 @@ const PriorityComboBox: FC<PriorityComboBoxProps> = ({ onSelect, value }) => {
   const [optionValue, setOptionValue] = useState<{
     color: string;
     value: string;
-  }>({ color: '', value: value });
+  }>({ color: value, value: value });
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -56,7 +56,7 @@ const PriorityComboBox: FC<PriorityComboBoxProps> = ({ onSelect, value }) => {
   };
 
   return (
-    <ComboBoxWrapper role="combobox" style={{ zIndex: 99999 }}>
+    <ComboBoxWrapper role="combobox" style={isOpen ? { zIndex: 99999 } : {}}>
       <div className="flex flex-col gap-[8px]">
         <ClassedLabel>Priorität</ClassedLabel>
         <SelectWrapper
@@ -69,13 +69,11 @@ const PriorityComboBox: FC<PriorityComboBoxProps> = ({ onSelect, value }) => {
           ref={dropDownRef}
         >
           <SelectValueWarapper
-            className={`${
-              optionValue.value == '' ? 'text-neutral-200' : 'text-black'
-            } `}
+            className={`${value == '' ? 'text-neutral-200' : 'text-black'} `}
           >
             <PriorityIndicator
-              color={optionValue.color}
-              priority={optionValue.value}
+              color={value ? optionValue.color : ''}
+              priority={value ? optionValue.value : ''}
             />
             <span>{value ? optionValue.value : 'Priotrität'}</span>
           </SelectValueWarapper>
@@ -88,33 +86,35 @@ const PriorityComboBox: FC<PriorityComboBoxProps> = ({ onSelect, value }) => {
         </SelectWrapper>
       </div>
 
-      <DropDownWrapper
-        className={`${
-          isOpen
-            ? `opacity-100 top-full outline outline-2 outline-primary`
-            : 'opacity-0 top-0 pointer-events-none'
-        }`}
-      >
-        {PriorityData.map((prio) => (
-          <div
-            key={prio.value}
-            className={`${PriorityOptionStyle} ${BaseAnimation}`}
-            tabIndex={isOpen ? 0 : -1}
-            onClick={() => handleSelect(prio.color, prio.value)}
-            onKeyDown={(e) =>
-              e.key === 'Enter' && handleSelect(prio.color, prio.value)
-            }
-          >
-            <div className="flex items-center gap-[8px]">
-              <PriorityIndicator color={prio.color} priority={prio.value} />
-              <span>{prio.value}</span>
+      {isOpen && (
+        <DropDownWrapper
+          className={`${
+            isOpen
+              ? `opacity-100 top-full outline outline-2 outline-primary`
+              : 'opacity-0 top-0 pointer-events-none'
+          }`}
+        >
+          {PriorityData.map((prio) => (
+            <div
+              key={prio.value}
+              className={`${PriorityOptionStyle} ${BaseAnimation}`}
+              tabIndex={isOpen ? 0 : -1}
+              onClick={() => handleSelect(prio.color, prio.value)}
+              onKeyDown={(e) =>
+                e.key === 'Enter' && handleSelect(prio.color, prio.value)
+              }
+            >
+              <div className="flex items-center gap-[8px]">
+                <PriorityIndicator color={prio.color} priority={prio.value} />
+                <span>{prio.value}</span>
+              </div>
+              {optionValue.value === prio.value && (
+                <CheckMark color="#5b5c5d" size="16" />
+              )}
             </div>
-            {optionValue.value === prio.value && (
-              <CheckMark color="#5b5c5d" size="16" />
-            )}
-          </div>
-        ))}
-      </DropDownWrapper>
+          ))}
+        </DropDownWrapper>
+      )}
     </ComboBoxWrapper>
   );
 };
