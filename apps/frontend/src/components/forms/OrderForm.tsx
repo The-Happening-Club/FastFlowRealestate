@@ -10,9 +10,10 @@ import FileUploadDropZone from '../ui/organisms/FileUploadDropZone';
 import PriorityDropDown from '../ui/organisms/inputs/comboboxen/PriorityComboBox';
 // import UserComboBox from '../ui/organisms/inputs/comboboxen/UserComboBox';
 import { ClassedLabel } from '../ui/organisms/inputs/styles/classedStyles';
-
+import UserComboBox from '../ui/organisms/inputs/comboboxen/UserComboBox';
+import { UserDataProps } from '../ui/organisms/inputs/comboboxen/UserComboBox';
 const ClassedInputWrapper = classed('div', 'flex flex-col gap-2');
-const ClassedDoubleInputWrapper = classed('div', 'flex gap-4');
+const ClassedDoubleInputWrapper = classed('div', 'flex justify-between');
 const ClassedInputLabel = classed('label', 'text-slate-600  font-semibold');
 // const emailData = [
 //   {
@@ -109,27 +110,43 @@ const ClassedInputLabel = classed('label', 'text-slate-600  font-semibold');
 //   },
 // ];
 
+const user = {
+  id: 'bg-blue',
+  name: 'Philipp',
+  surname: 'Sanchez Paetzmann',
+  company: 'The Happening Club',
+  role: 'CEO',
+};
 export interface OptionProps {
   value: string;
   color?: string;
 }
 const objektData: string[] = ['weg 239', '235 taufkirchen', 'weg blabal'];
 
+interface FormDataProps {
+  title: string;
+  discription: string;
+  deadline: string;
+  priority: string;
+  reminder: [];
+  objekt: string;
+  assignees: UserDataProps[];
+  status: string;
+}
 const OrderForm = () => {
   // type / interface festlegen
-  const initialFormData = {
+  const initialFormData: FormDataProps = {
     title: '',
     discription: '',
     deadline: '',
     priority: '',
     reminder: [],
     objekt: '',
-    assignee: [],
+    assignees: [],
     status: '',
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [enabled, setEnabled] = useState(true);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -137,9 +154,11 @@ const OrderForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSetOption = (key: string, optionValue: string) => {
+  const handleSetOption = (
+    key: string,
+    optionValue: string | UserDataProps[]
+  ) => {
     const update = { ...formData, [key]: optionValue };
-    console.log(update);
     setFormData(update);
   };
 
@@ -149,11 +168,14 @@ const OrderForm = () => {
       const update = { ...formData, ['priority']: 'ohne' };
       setFormData(update);
     }
+    formData.assignees.forEach((item) => console.log('this: ' + item));
+
     alert(
       formData.title +
         formData.discription +
         formData.priority +
         formData.deadline +
+        JSON.stringify(formData.assignees) +
         formData.objekt +
         formData.reminder
     );
@@ -169,26 +191,36 @@ const OrderForm = () => {
         <header className="text-3xl font-semibold  text-primary">
           Neuen Auftrag anlegen
         </header>
-        <div className="relative flex group hover:gap-2 transition-all duration-500 ease-in-out cursor-pointer">
-          <div className="relative left-[36px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-20 transition-all duration-500 ease-in-out">
-            <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
-              x
-            </div>
-          </div>
-          <div className="relative left-[16px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-10 transition-all duration-300 ease-in-out">
-            <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
-              x
-            </div>
-          </div>
-          <div className="relative flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-0">
-            <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
-              x
-            </div>
-          </div>
 
+        <div className="relative flex group hover:gap-2 transition-all duration-500 ease-in-out cursor-pointer">
+          {formData.assignees.slice(0, 4).map((assignee, i) => (
+            <div
+              key={assignee.id}
+              className={`relative flex justify-center items-center h-10 w-10 rounded-full border border-primary bg-blue-300 z-20 transition-all duration-500 ease-in-out ${
+                i === 3 ? 'right-0' : ''
+              } group`}
+            >
+              <span className="text-primary font-bold">
+                {assignee.name[0]}
+                {assignee.surname[0]}
+              </span>
+              {i === 3 && (
+                <div className="group-hover:flex relative hidden -top-1 left-5 h-4 w-4 justify-center items-center bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
+                  x
+                </div>
+              )}
+            </div>
+          ))}
           {/* maximum assignee count then circle with plus sign */}
         </div>
       </div>
+      <OptionInput
+        label="Objekt"
+        optionData={objektData}
+        onChange={(value) => {
+          handleSetOption('objekt', value);
+        }}
+      />
       <ClassedInputWrapper>
         <ClassedLabel htmlFor="">
           Auftrags Titel <RequiredAstrix> *</RequiredAstrix>
@@ -221,15 +253,6 @@ const OrderForm = () => {
         ></textarea>
       </ClassedInputWrapper>
 
-      <OptionInput
-        label="Objekt"
-        optionData={objektData}
-        required={true}
-        onChange={(value) => {
-          handleSetOption('objekt', value);
-        }}
-      />
-
       <ClassedDoubleInputWrapper>
         <ClassedInputWrapper>
           <ClassedLabel htmlFor="deadline">Deadline</ClassedLabel>
@@ -241,34 +264,28 @@ const OrderForm = () => {
             className="px-[12px] py-[12px] font-light rounded-[14px] text-[16px] border bg-white border-slate-200"
           />
         </ClassedInputWrapper>
+        <ClassedInputWrapper>
+          <ClassedLabel htmlFor="deadline">Reminder</ClassedLabel>
+          <input
+            type="date"
+            id="reminder"
+            name="reminder"
+            onChange={handleChange}
+            className="px-[12px] py-[12px] font-light rounded-[14px] text-[16px] border bg-white border-slate-200"
+          />
+        </ClassedInputWrapper>
         <PriorityDropDown
           value={formData.priority}
           onSelect={(value) => handleSetOption('priority', value)}
         />
-        {/* <ClassedInputLabel
-            htmlFor="reminder"
-            className="flex flex-col w-full"
-          >
-            Reminder
-            <input
-              type="date"
-              id="reminder"
-              name="reminder"
-              className="px-[12px] py-[12px] font-light rounded-[14px] text-[16px] border bg-white border-slate-200"
-              onChange={handleChange}
-            />
-          </ClassedInputLabel> */}
       </ClassedDoubleInputWrapper>
-
-      <ClassedDoubleInputWrapper>
-        {/* <UserComboBox
-          onSelect={(value) => handleSetOption('assignee', value)}
-        /> */}
-      </ClassedDoubleInputWrapper>
-      <FileUploadDropZone />
-      {/* <div>
-          <AssigneInput />
-        </div>
+      <UserComboBox
+        user={user}
+        value={formData.assignees}
+        onSelect={(value) => handleSetOption('assignees', value)}
+      />
+      {/* <FileUploadDropZone /> */}
+      {/*
 
         <div className="flex justify-end gap-2">
           <Switch
