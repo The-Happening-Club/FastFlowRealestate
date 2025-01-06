@@ -30,7 +30,7 @@ export const Button: FC<ButtonProps> = ({
     <button
       type="button"
       aria-label={ariaLabel}
-      className={`w-fit h-fit px-4 py-2 min-w-32 rounded-md ${color} text-white transition-colors duration-300 ease-in-out`}
+      className={`w-fit h-fit text-[18px] px-[24px] py-[12px] font-normal min-w-32 rounded-[16px] ${color} text-white transition-colors duration-300 ease-in-out`}
       onClick={onClicked}
     >
       {text}
@@ -61,7 +61,7 @@ export const SubmitButton: FC<ButtonProps> = ({
       type="submit"
       aria-label={ariaLabel}
       disabled={disabled}
-      className={`w-fit h-fit px-4 py-2 min-w-32 rounded-md ${color} text-white transition-colors duration-300 ease-in-out disabled:bg-button-primary-disabled`}
+      className={`w-fit h-fit text-[18px] px-[24px] py-[12px] font-normal min-w-32 rounded-[16px] ${color} text-white transition-colors duration-300 ease-in-out disabled:bg-button-primary-disabled`}
     >
       {text}
     </button>

@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        SpaceGrotesk: ['SpaceGrotesk', 'sans-serif'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
@@ -17,6 +20,21 @@ export default {
         },
         primitive: {
           white: 'var(--white)',
+        },
+        green: {
+          DEFAULT: 'var(--green-default)',
+        },
+        yellow: {
+          DEFAULT: 'var(--yellow-default)',
+        },
+        orange: {
+          DEFAULT: 'var(--orange-default)',
+        },
+        red: {
+          DEFAULT: 'var(--red-default)',
+        },
+        gray: {
+          DEFAULT: 'var(--gray-default)',
         },
         neutral: {
           100: 'var(--neutral-100)',

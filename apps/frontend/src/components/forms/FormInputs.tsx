@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { OptionProps } from './OrderForm';
 import { RequiredAstrix } from './ClassedFormTags';
+import { ClassedLabel } from '../ui/organisms/inputs/styles/classedStyles';
 // Detect Click outside
 // Chevron Down and Up
 // Change Color of Option
@@ -36,10 +37,10 @@ export const OptionInput: React.FC<OptionInputProps> = ({
 
   return (
     <div role="wrapper" className="flex flex-col gap-2">
-      <label htmlFor="" className="text-slate-600 font-semibold">
+      <ClassedLabel htmlFor="">
         {label}
         {required ? <RequiredAstrix> *</RequiredAstrix> : ''}
-      </label>
+      </ClassedLabel>
       <select
         required
         className={`px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200 h-[50px] ${
@@ -85,9 +86,9 @@ export const OptionDropDown = ({
 
   return (
     <div className="flex flex-col w-full">
-      <label className="text-slate-600 font-semibold">
+      <ClassedLabel>
         {label} <RequiredAstrix> *</RequiredAstrix>
-      </label>
+      </ClassedLabel>
       <div className="relative px-[12px] py-[12px] font-light rounded-[14px] text-[16px] border bg-white border-slate-200">
         <div className="text-slate-400" onClick={() => setIsOpen(!isOpen)}>
           {option ? (

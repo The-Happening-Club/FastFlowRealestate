@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('/fonts/SpaceGrotesk-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --background: #eceff1;
   --foreground: #000134;
@@ -14,11 +21,15 @@
 
   --blue-default: #1143d4;
   --green-default: #00cc5f;
+  --yellow-default: #eaff00;
+  --orange-default: #ff6600;
+  --red-default: #cc0022;
+  --gray-default: #767879;
 
   /* neutrals */
   --neutral-100: #cdd0d2;
-  --neutral-300: #929495;
   --neutral-200: #afb1b3;
+  --neutral-300: #929495;
   --neutral-400: #767879;
   --neutral-500: #5b5c5d;
   --neutral-600: #424243;

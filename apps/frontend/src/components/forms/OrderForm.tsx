@@ -1,12 +1,15 @@
 'use client';
+
 import React, { useState } from 'react';
-import { AssigneInput, OptionDropDown, OptionInput } from './FormInputs';
+import { OptionInput } from './FormInputs';
 import { classed } from '@tw-classed/react';
 import { Button, SubmitButton } from '../ui/atoms/Buttons';
 // import { Switch } from '@headlessui/react';
 import { RequiredAstrix } from './ClassedFormTags';
 import FileUploadDropZone from '../ui/organisms/FileUploadDropZone';
-import PriorityDropDown from '../ui/organisms/inputs/drop-downs/PrioriryComboBox';
+import PriorityDropDown from '../ui/organisms/inputs/comboboxen/PriorityComboBox';
+// import UserComboBox from '../ui/organisms/inputs/comboboxen/UserComboBox';
+import { ClassedLabel } from '../ui/organisms/inputs/styles/classedStyles';
 
 const ClassedInputWrapper = classed('div', 'flex flex-col gap-2');
 const ClassedDoubleInputWrapper = classed('div', 'flex gap-4');
@@ -112,28 +115,16 @@ export interface OptionProps {
 }
 const objektData: string[] = ['weg 239', '235 taufkirchen', 'weg blabal'];
 
-const prioData: OptionProps[] = [
-  { value: 'ohne', color: 'bg-blue-400' },
-  { value: 'niedrig', color: 'bg-emerald-400' },
-  { value: 'mittel', color: 'bg-yellow-400' },
-  { value: 'hoch', color: 'bg-red-400' },
-];
-const statusData: OptionProps[] = [
-  { value: 'aufgenommen', color: 'bg-slate-400' },
-  { value: 'in Arbeit', color: 'bg-orange-400' },
-  { value: 'warten', color: 'bg-blue-400' },
-  { value: 'erledigt', color: 'bg-emerald-400' },
-];
-
 const OrderForm = () => {
   // type / interface festlegen
   const initialFormData = {
     title: '',
     discription: '',
     deadline: '',
+    priority: '',
     reminder: [],
     objekt: '',
-    priority: '',
+    assignee: [],
     status: '',
   };
 
@@ -154,6 +145,10 @@ const OrderForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!formData.priority) {
+      const update = { ...formData, ['priority']: 'ohne' };
+      setFormData(update);
+    }
     alert(
       formData.title +
         formData.discription +
@@ -166,93 +161,91 @@ const OrderForm = () => {
   };
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col w-[600px] rounded-xl bg-primitive-white border border-slate-200 text-black p-7 gap-4 drop-shadow-lg transition-all duration-500 ease-in-out"
-      >
-        <div className="flex w-full justify-between">
-          <header className="text-3xl font-semibold text-primary">
-            Neuen Auftrag anlegen
-          </header>
-          <div className="relative flex group hover:gap-2 transition-all duration-500 ease-in-out cursor-pointer">
-            <div className="relative left-[36px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-20 transition-all duration-500 ease-in-out">
-              <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
-                x
-              </div>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col w-[600px] rounded-xl bg-primitive-white border border-slate-200 text-black p-7 gap-[24px] drop-shadow-lg transition-all duration-500 ease-in-out"
+    >
+      <div className="flex w-full justify-between">
+        <header className="text-3xl font-semibold  text-primary">
+          Neuen Auftrag anlegen
+        </header>
+        <div className="relative flex group hover:gap-2 transition-all duration-500 ease-in-out cursor-pointer">
+          <div className="relative left-[36px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-20 transition-all duration-500 ease-in-out">
+            <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
+              x
             </div>
-            <div className="relative left-[16px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-10 transition-all duration-300 ease-in-out">
-              <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
-                x
-              </div>
-            </div>
-            <div className="relative flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-0">
-              <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
-                x
-              </div>
-            </div>
-
-            {/* maximum assignee count then circle with plus sign */}
           </div>
+          <div className="relative left-[16px] group-hover:left-0 flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-10 transition-all duration-300 ease-in-out">
+            <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
+              x
+            </div>
+          </div>
+          <div className="relative flex h-10 w-10 bg-slate-400 rounded-full border border-primary z-0">
+            <div className="group-hover:flex relative hidden left-5 -top-1 justify-center items-center h-4 w-4 bg-slate-300 rounded-full transition-all duration-300 ease-in-out">
+              x
+            </div>
+          </div>
+
+          {/* maximum assignee count then circle with plus sign */}
         </div>
+      </div>
+      <ClassedInputWrapper>
+        <ClassedLabel htmlFor="">
+          Auftrags Titel <RequiredAstrix> *</RequiredAstrix>
+        </ClassedLabel>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value={formData?.title}
+          onChange={handleChange}
+          className="px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200 focus:outline-primary"
+          placeholder="Bitte füge eine Titel zu deinem Auftrag hinzu."
+          required
+        />
+      </ClassedInputWrapper>
+
+      <ClassedInputWrapper className="flex flex-col gap-2">
+        <ClassedInputLabel htmlFor="">
+          Auftrags Beschreibung <RequiredAstrix> *</RequiredAstrix>
+        </ClassedInputLabel>
+        <textarea
+          name="discription"
+          id="discription"
+          className="resize-none h-48 px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200"
+          value={formData?.discription}
+          cols={33}
+          onChange={handleChange}
+          placeholder="Bitte füge eine Beschreibung des Auftrags hinzu."
+          required
+        ></textarea>
+      </ClassedInputWrapper>
+
+      <OptionInput
+        label="Objekt"
+        optionData={objektData}
+        required={true}
+        onChange={(value) => {
+          handleSetOption('objekt', value);
+        }}
+      />
+
+      <ClassedDoubleInputWrapper>
         <ClassedInputWrapper>
-          <ClassedInputLabel htmlFor="">
-            Auftrags Titel <RequiredAstrix> *</RequiredAstrix>
-          </ClassedInputLabel>
+          <ClassedLabel htmlFor="deadline">Deadline</ClassedLabel>
           <input
-            type="text"
-            name="title"
-            id="title"
-            value={formData?.title}
+            type="date"
+            id="deadline"
+            name="deadline"
             onChange={handleChange}
-            className="px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200 focus:outline-primary"
-            placeholder="Bitte füge eine Titel zu deinem Auftrag hinzu."
-            required
+            className="px-[12px] py-[12px] font-light rounded-[14px] text-[16px] border bg-white border-slate-200"
           />
         </ClassedInputWrapper>
-
-        <ClassedInputWrapper className="flex flex-col gap-2">
-          <ClassedInputLabel htmlFor="">
-            Auftrags Beschreibung <RequiredAstrix> *</RequiredAstrix>
-          </ClassedInputLabel>
-          <textarea
-            name="discription"
-            id="discription"
-            className="resize-none h-48 px-[12px] py-[12px] rounded-[14px] text-[16px] border bg-white border-slate-200"
-            value={formData?.discription}
-            cols={33}
-            onChange={handleChange}
-            placeholder="Bitte füge eine Beschreibung des Auftrags hinzu."
-            required
-          ></textarea>
-        </ClassedInputWrapper>
-
-        <OptionInput
-          label="Objekt"
-          optionData={objektData}
-          required={true}
-          onChange={(value) => {
-            handleSetOption('objekt', value);
-          }}
+        <PriorityDropDown
+          value={formData.priority}
+          onSelect={(value) => handleSetOption('priority', value)}
         />
-
-        <ClassedDoubleInputWrapper>
-          <ClassedInputLabel
-            htmlFor="deadline"
-            className="flex flex-col w-full"
-          >
-            <span>Deadline</span>
-            <input
-              type="date"
-              id="deadline"
-              name="deadline"
-              onChange={handleChange}
-              className="px-[12px] py-[12px] font-light rounded-[14px] text-[16px] border bg-white border-slate-200"
-              required
-            />
-          </ClassedInputLabel>
-          <PriorityDropDown />
-          {/* <ClassedInputLabel
+        {/* <ClassedInputLabel
             htmlFor="reminder"
             className="flex flex-col w-full"
           >
@@ -265,13 +258,15 @@ const OrderForm = () => {
               onChange={handleChange}
             />
           </ClassedInputLabel> */}
-        </ClassedDoubleInputWrapper>
+      </ClassedDoubleInputWrapper>
 
-        <ClassedDoubleInputWrapper>
-          <AssigneInput />
-        </ClassedDoubleInputWrapper>
-        <FileUploadDropZone />
-        {/* <div>
+      <ClassedDoubleInputWrapper>
+        {/* <UserComboBox
+          onSelect={(value) => handleSetOption('assignee', value)}
+        /> */}
+      </ClassedDoubleInputWrapper>
+      <FileUploadDropZone />
+      {/* <div>
           <AssigneInput />
         </div>
 
@@ -307,27 +302,26 @@ const OrderForm = () => {
           </button>
           <div>emails added</div>
         </div> */}
-        <div className="flex justify-end gap-4 pt-8">
-          <Button
-            bgColor={'secondary'}
-            ariaLabel="Auftrags Erstellung abbrechen"
-            text="Abbrechen"
-          />
-          <SubmitButton
-            bgColor={'primary'}
-            ariaLabel="neuen Auftrag anlegen"
-            text="Anlegen"
-            disabled={false}
-          />
+      <div className="flex justify-end gap-4 pt-8">
+        <Button
+          bgColor={'secondary'}
+          ariaLabel="Auftrags Erstellung abbrechen"
+          text="Abbrechen"
+        />
+        <SubmitButton
+          bgColor={'primary'}
+          ariaLabel="neuen Auftrag anlegen"
+          text="Anlegen"
+          disabled={false}
+        />
 
-          {/* <NotificationDialog
+        {/* <NotificationDialog
             isErrorOrSucces={false}
             errorMessage="OOOps da ist was schiefgelaufen"
             error="404"
           /> */}
-        </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 };
 
