@@ -121,7 +121,18 @@ export interface OptionProps {
   value: string;
   color?: string;
 }
-const objektData: string[] = ['weg 239', '235 taufkirchen', 'weg blabal'];
+const objektData: string[] = [
+  'Sonnenhof 12A',
+  'Lindenstraße 45',
+  'Gartenblick 3',
+  'Berliner Allee 99',
+  'Hafenstraße 10',
+  'Alte Mühle 7',
+  'Schlossallee 21',
+  'Rosenweg 18B',
+  'Bergstraße 88',
+  'Kirchplatz 5',
+];
 
 interface FormDataProps {
   title: string;
